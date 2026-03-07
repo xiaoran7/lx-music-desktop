@@ -31,9 +31,13 @@ export const setLrcConfig = (keys: Array<keyof LX.AppSetting>, setting: Partial<
     if (keys.includes('desktopLyric.isHoverHide') && isHoverHide != global.lx.appSetting['desktopLyric.isHoverHide']) {
       isHoverHide = global.lx.appSetting['desktopLyric.isHoverHide']
       if (!isLinux) {
-        setIgnoreMouseEvents(global.lx.appSetting['desktopLyric.isLock'], { forward: global.lx.appSetting['desktopLyric.isHoverHide'] })
+        setIgnoreMouseEvents(global.lx.appSetting['desktopLyric.isLock'], { forward: isHoverHide })
+        if (isHoverHide) {
+          mouseCheckTools.runCheck(sendMouseLeave)
+        } else {
+          mouseCheckTools.cacnelCheck()
+        }
       }
-      mouseCheckTools.runCheck(sendMouseLeave)
     }
     if (keys.includes('desktopLyric.isAlwaysOnTop') && isAlwaysOnTop != global.lx.appSetting['desktopLyric.isAlwaysOnTop']) {
       isAlwaysOnTop = global.lx.appSetting['desktopLyric.isAlwaysOnTop']
