@@ -35,7 +35,7 @@ module.exports = {
 
   // target: 'minor',
   // filter: [
-  //  // 'electron',
+  //   'electron',
   //   'eslint',
   //   'eslint-webpack-plugin',
   //   'electron-debug',
