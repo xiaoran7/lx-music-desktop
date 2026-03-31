@@ -14,6 +14,7 @@ module.exports = {
     '@types/node',
     'electron-debug',
     'eslint-webpack-plugin',
+    'typescript',
 
     'eslint-plugin-vue',
     'vue-eslint-parser',
@@ -39,6 +40,7 @@ module.exports = {
   //   'eslint',
   //   'eslint-webpack-plugin',
   //   'electron-debug',
+  //   'typescript',
   //   '@types/node',
 
   //   'eslint-plugin-vue',
