@@ -66,6 +66,7 @@ import {
 import { appSetting } from '@renderer/store/setting'
 import { togglePlay, playNext, playPrev } from '@renderer/core/player'
 import { LIST_IDS } from '@common/constants'
+import { formatMusicName } from '@renderer/utils'
 
 export default {
   name: 'CorePlayBar',
@@ -112,7 +113,7 @@ export default {
 
     const title = computed(() => {
       return musicInfo.name
-        ? appSetting['download.fileName'].replace('歌名', musicInfo.name).replace('歌手', musicInfo.singer)
+        ? formatMusicName(appSetting['download.fileName'], musicInfo.name, musicInfo.singer)
         : ''
     })
 

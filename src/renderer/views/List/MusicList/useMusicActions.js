@@ -5,7 +5,7 @@ import { dialog } from '@renderer/plugins/Dialog'
 import { useI18n } from '@renderer/plugins/i18n'
 import { removeListMusics } from '@renderer/store/list/action'
 import { appSetting } from '@renderer/store/setting'
-import { toOldMusicInfo } from '@renderer/utils/index'
+import { formatMusicName, toOldMusicInfo } from '@renderer/utils/index'
 import { addDislikeInfo, hasDislike } from '@renderer/core/dislikeList'
 import { playNext } from '@renderer/core/player'
 import { playMusicInfo } from '@renderer/store/player/state'
@@ -34,7 +34,7 @@ export default ({ props, list, selectedList, removeAllSelect }) => {
 
   const handleCopyName = index => {
     const minfo = list.value[index]
-    clipboardWriteText(appSetting['download.fileName'].replace('歌名', minfo.name).replace('歌手', minfo.singer))
+    clipboardWriteText(formatMusicName(appSetting['download.fileName'], minfo.name, minfo.singer))
   }
 
   const handleDislikeMusic = async(index) => {

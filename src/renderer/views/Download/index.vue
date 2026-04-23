@@ -80,6 +80,7 @@ import useTaskActions from './useTaskActions'
 import useMusicAdd from './useMusicAdd'
 import { downloadStatus } from '@renderer/store/download/state'
 import { appSetting } from '@renderer/store/setting'
+import { formatMusicName } from '@renderer/utils'
 
 export default {
   name: 'Download',
@@ -203,7 +204,7 @@ export default {
     }
 
     const getName = (downloadInfo) => {
-      return appSetting['download.fileName'].replace('歌名', downloadInfo.metadata.musicInfo.name).replace('歌手', downloadInfo.metadata.musicInfo.singer)
+      return formatMusicName(appSetting['download.fileName'], downloadInfo.metadata.musicInfo.name, downloadInfo.metadata.musicInfo.singer)
     }
     const getTypeName = (quality) => {
       return quality == 'flac24bit' ? 'FLAC Hires' : quality?.toUpperCase()

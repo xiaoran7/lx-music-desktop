@@ -148,3 +148,7 @@ export const clipFileNameLength = (name: string) => {
   return name.length > MAX_FILE_NAME_LENGTH ? name.substring(0, MAX_FILE_NAME_LENGTH) : name
 }
 
+export const formatMusicName = (format: string, name: string, singer: string) => {
+  // return format.replace(/歌名|歌手/g, match => match === '歌名' ? name : singer)
+  return format.replace('歌手', singer).replace('歌名', name)
+}
