@@ -6,6 +6,26 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [2.12.2](https://github.com/lyswhut/lx-music-desktop/compare/v2.12.1...v2.12.2) - 2026-05-01
+
+我们很高兴地宣布新项目 Any Listen 的桌面版已发布，目前已支持列表跟随本地文件自动更新、加载并播放WebDAV上的歌曲等功能，更多功能仍在积极开发中，桌面版与Web版将同步更新。
+对于有播放本地音乐或播放服务器上音乐需求的人可以试试，若遇到任何问题可以发 issue 反馈。
+
+### 优化
+
+- 优化歌单内歌曲搜索结果排序 (#2734)
+
+### 修复
+
+- 修复桌面歌词的 鼠标移入歌词区域时提高透明度 设置不稳定的问题（#2679, @Little100）
+- 修复某些情况下可能播放没有声音的问题（#2693）
+- 修复 tx 搜索结果显示异常的问题（#2753）
+- 修复音乐名称和歌手信息格式化问题（#2733）
+
+### 其他
+
+- 更新 Electron 到 40.8.3
+
 ## [2.12.1](https://github.com/lyswhut/lx-music-desktop/compare/v2.12.0...v2.12.1) - 2026-02-16
 
 我们很高兴地宣布新项目 Any Listen 的桌面版已发布，目前已支持列表跟随本地文件自动更新、加载并播放WebDAV上的歌曲等功能，更多功能仍在积极开发中，桌面版与Web版将同步更新。
