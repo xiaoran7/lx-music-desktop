@@ -51,7 +51,7 @@ let convolverDynamicsCompressor: DynamicsCompressorNode
 let gainNode: GainNode
 let panner: PannerNode
 let pitchShifterNode: AudioWorkletNode
-let pitchShifterNodePitchFactor: AudioParam | null
+let pitchShifterNodePitchFactor: AudioParam
 let pitchShifterNodeLoadStatus: 'none' | 'loading' | 'unconnect' | 'connected' = 'none'
 let pitchShifterNodeTempValue = 1
 let defaultChannelCount = 2
@@ -332,7 +332,7 @@ const connectPitchShifterNode = () => {
   // convolverDynamicsCompressor.connect(pitchShifterNode)
   // pitchShifterNode.connect(panner)
   pitchShifterNodeLoadStatus = 'connected'
-  pitchShifterNodePitchFactor!.value = pitchShifterNodeTempValue
+  pitchShifterNodePitchFactor.value = pitchShifterNodeTempValue
 }
 const disconnectPitchShifterNode = () => {
   console.log('disconnect Pitch Shifter Node')
@@ -341,7 +341,6 @@ const disconnectPitchShifterNode = () => {
   lastBiquadFilter.connect(convolver)
   lastBiquadFilter.connect(convolverSourceGainNode)
   pitchShifterNodeLoadStatus = 'unconnect'
-  pitchShifterNodePitchFactor = null
 
   audio!.removeEventListener('playing', connectNode)
   audio!.removeEventListener('pause', disconnectNode)
@@ -383,7 +382,7 @@ export const setPitchShifter = (val: number) => {
     case 'connected':
       // a: 1 = 半音
       // value = 2 ** (a / 12)
-      pitchShifterNodePitchFactor!.value = val
+      pitchShifterNodePitchFactor.value = val
       break
     case 'unconnect':
       connectPitchShifterNode()
