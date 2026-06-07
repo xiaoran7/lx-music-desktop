@@ -1,11 +1,14 @@
 import { httpFetch } from '../../request'
 import getMusicInfo from './musicInfo'
-import { rendererInvoke } from '@common/rendererIpc'
-import { WIN_MAIN_RENDERER_EVENT_NAME } from '@common/ipcNames'
+import { decodeQrc } from './qrcDecode'
 
 const songIdMap = new Map()
 const promises = new Map()
-export const decodeLyric = (lrc, tlrc, rlrc) => rendererInvoke(WIN_MAIN_RENDERER_EVENT_NAME.handle_tx_decode_lyric, { lrc, tlrc, rlrc })
+export const decodeLyric = async(lrc, tlrc, rlrc) => ({
+  lyric: await decodeQrc(lrc),
+  tlyric: await decodeQrc(tlrc),
+  rlyric: await decodeQrc(rlrc),
+})
 
 
 const parseTools = {
