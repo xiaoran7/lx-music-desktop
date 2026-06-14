@@ -206,7 +206,6 @@ export const request = async <T = unknown>(url: string, options: Options = {}): 
     body,
     signal: options.signal,
     dispatcher: buildRequestDispatcher(options),
-    // @ts-expect-error
     maxRedirections: options.maxRedirect ?? defaultOptions.maxRedirect,
   }).then(async(response) => {
     if (options.needBody) {
