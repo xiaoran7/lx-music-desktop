@@ -139,6 +139,10 @@ const modules = {
     sync_get_server_devices: 'sync_get_server_devices',
     sync_remove_server_device: 'sync_remove_server_device',
 
+    statistics_collect_time: 'statistics_collect_time',
+    get_statistics: 'get_statistics',
+    statistics_updated: 'statistics_updated',
+
     process_new_desktop_lyric_client: 'process_new_desktop_lyric_client',
 
     player_action_set_buttons: 'player_action_set_buttons',

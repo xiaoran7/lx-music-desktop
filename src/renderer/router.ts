@@ -55,6 +55,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/statistics',
+      name: 'Statistics',
+      component: require('./views/Statistics/index.vue').default,
+      meta: {
+        name: 'Statistics',
+      },
+    },
+    {
       path: '/setting',
       name: 'Setting',
       component: require('./views/Setting/index.vue').default,
