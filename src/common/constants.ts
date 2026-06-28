@@ -45,6 +45,8 @@ export const DATA_KEYS = {
   searchSetting: 'searchSetting',
 
   lastStartInfo: 'lastStartInfo',
+
+  listeningStatistics: 'listeningStatistics',
 } as const
 
 export const DEFAULT_SETTING = {

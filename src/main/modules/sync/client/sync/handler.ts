@@ -17,6 +17,10 @@ const handler: Omit<LX.Sync.ClientSyncHandlerActions<LX.Sync.Client.Socket>, 'fi
         if (featureVersion.dislike == supportedFeatures.dislike) {
           features.dislike = { skipSnapshot: false }
         }
+        // 统计只增不删，无需快照三方 diff，直接全量 max-merge
+        if (featureVersion.statistics == supportedFeatures.statistics) {
+          features.statistics = { skipSnapshot: true }
+        }
         return features
       case 'desktop-app':
       default:
@@ -25,6 +29,9 @@ const handler: Omit<LX.Sync.ClientSyncHandlerActions<LX.Sync.Client.Socket>, 'fi
         }
         if (featureVersion.dislike == supportedFeatures.dislike) {
           features.dislike = { skipSnapshot: false }
+        }
+        if (featureVersion.statistics == supportedFeatures.statistics) {
+          features.statistics = { skipSnapshot: true }
         }
         return features
     }

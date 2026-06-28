@@ -74,6 +74,15 @@ export default {
           name: 'Download',
         },
         {
+          to: '/statistics',
+          tips: t('statistics'),
+          icon: '#icon-statistics',
+          iconSize: '0 0 1024 1024',
+          size,
+          enable: true,
+          name: 'Statistics',
+        },
+        {
           to: '/setting',
           tips: t('setting'),
           icon: '#icon-setting',

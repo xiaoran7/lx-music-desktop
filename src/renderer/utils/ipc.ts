@@ -74,7 +74,24 @@ export const onDeeplink = (listener: LX.IpcRendererEventListenerParams<string>):
 }
 
 export const checkUpdate = () => {
-  rendererSend(WIN_MAIN_RENDERER_EVENT_NAME.update_check)
+  // 更新模块已剔除：不再向上游检查更新。保留前后端代码与 UI，仅让该调用变为无操作。
+  // rendererSend(WIN_MAIN_RENDERER_EVENT_NAME.update_check)
+}
+
+// 听歌统计：渲染进程投递「限幅后的累计秒数」给主进程累加
+export const collectStatisticsTime = (data: { source?: string, seconds: number, immediate?: boolean }) => {
+  rendererSend(WIN_MAIN_RENDERER_EVENT_NAME.statistics_collect_time, data)
+}
+// 拉取聚合统计（UI 展示）
+export const getStatistics = async() => {
+  return rendererInvoke<LX.Statistics.AggregatedData>(WIN_MAIN_RENDERER_EVENT_NAME.get_statistics)
+}
+// 监听统计变更推送
+export const onStatisticsUpdated = (listener: LX.IpcRendererEventListenerParams<LX.Statistics.AggregatedData>): RemoveListener => {
+  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.statistics_updated, listener)
+  return () => {
+    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.statistics_updated, listener)
+  }
 }
 
 export const downloadUpdate = () => {

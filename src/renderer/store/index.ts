@@ -127,8 +127,9 @@ export const versionInfo = window.lxData.versionInfo = reactive<{
   showModal: false,
   reCheck: false,
   isUnknown: false,
-  isLatest: false,
-  status: 'checking',
+  // 更新模块已剔除：默认即视为「已是最新」，避免设置页一直停留在「检查中」。
+  isLatest: true,
+  status: 'idle',
   downloadProgress: null,
 })
 export const userApi = reactive<{

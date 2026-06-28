@@ -1,4 +1,4 @@
-import { checkUpdate, getEnvParams, getViewPrevState, sendInited } from '@renderer/utils/ipc'
+import { getEnvParams, getViewPrevState, sendInited } from '@renderer/utils/ipc'
 
 import { proxy, isFullscreen, themeId } from '@renderer/store'
 import { appSetting } from '@renderer/store/setting'
@@ -15,6 +15,7 @@ import usePlayer from './usePlayer'
 import useSettingSync from './useSettingSync'
 import { useRouter } from '@common/utils/vueRouter'
 import handleListAutoUpdate from './listAutoUpdate'
+import initStatisticsCollector from '@renderer/core/statistics'
 
 
 export default () => {
@@ -38,6 +39,7 @@ export default () => {
 
   useUpdate()
   useSettingSync()
+  initStatisticsCollector()
 
   void getEnvParams().then(envParams => {
     // 移除代理相关的环境变量设置，防止请求库自动应用它们
@@ -71,7 +73,8 @@ export default () => {
       sendInited()
 
       handleListAutoUpdate()
-      if (window.lx.isProd && appSetting['common.isAgreePact']) checkUpdate()
+      // 更新模块已剔除：本应用为自建分支，不再自动检查/下载更新（checkUpdate 已被置为无操作）。
+      // if (window.lx.isProd && appSetting['common.isAgreePact']) checkUpdate()
     })
   })
 }
