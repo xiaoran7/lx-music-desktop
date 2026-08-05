@@ -55,9 +55,6 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
 # next.js build output
 .next
 
@@ -66,8 +63,3 @@ build
 
 dist
 
-publish/assets
-
-publish/utils/githubToken.js
-
-src/**/*-internal.js
