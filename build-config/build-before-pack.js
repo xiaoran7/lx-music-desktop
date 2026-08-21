@@ -28,7 +28,7 @@ const archMap = {
   [Arch.x64]: 'x64',
   [Arch.ia32]: 'ia32',
   [Arch.arm64]: 'arm64',
-  [Arch.armv7l]: 'armv7l',
+  [Arch.armv7l]: 'arm',
 }
 module.exports = async(context) => {
   await beforePack()
