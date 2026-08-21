@@ -2,7 +2,8 @@ const fs = require('fs')
 const fsPromises = require('fs').promises
 const path = require('path')
 const { Arch } = require('electron-builder')
-const nodeAbi = require('node-abi')
+// const nodeAbi = require('node-abi')
+const { beforePack } = require('./deps')
 
 const better_sqlite3_fileNameMap = {
   [Arch.x64]: 'linux-x64',
@@ -16,7 +17,7 @@ const replaceSqliteLib = async(electronNodeAbi, arch) => {
   // https://github.com/lyswhut/lx-music-desktop/issues/1102
   // https://github.com/lyswhut/lx-music-desktop/issues/1161
   console.log('replace sqlite lib...')
-  const filePath = path.join(__dirname, `./lib/better_sqlite3_electron-v${electronNodeAbi}-${better_sqlite3_fileNameMap[arch]}.node`)
+  const filePath = path.join(__dirname, `./lib/better_sqlite3_${better_sqlite3_fileNameMap[arch]}.node`)
   console.log(filePath)
   const targetPath = path.join(__dirname, '../node_modules/better-sqlite3/build/Release/better_sqlite3.node')
   await fsPromises.unlink(targetPath).catch(_ => _)
@@ -25,9 +26,10 @@ const replaceSqliteLib = async(electronNodeAbi, arch) => {
 
 
 module.exports = async(context) => {
+  await beforePack()
   const { electronPlatformName, arch } = context
-  const electronVersion = context.packager?.info?._framework?.version ?? require('../package.json').devDependencies.electron.replace(/^[^\d]*?(\d+)/, '$1')
-  const electronNodeAbi = nodeAbi.getAbi(electronVersion, 'electron')
+  // const electronVersion = context.packager?.info?._framework?.version ?? require('../package.json').devDependencies.electron.replace(/^[^\d]*?(\d+)/, '$1')
+  // const electronNodeAbi = nodeAbi.getAbi(electronVersion, 'electron')
   if (electronPlatformName !== 'linux' || process.env.FORCE) return
   const bindingFilePath = path.join(__dirname, '../node_modules/better-sqlite3/binding.gyp')
   const bindingBakFilePath = path.join(__dirname, '../node_modules/better-sqlite3/binding.gyp.bak')
@@ -39,7 +41,7 @@ module.exports = async(context) => {
         // console.log('rename binding file...')
         await fsPromises.rename(bindingFilePath, bindingBakFilePath)
       }
-      await replaceSqliteLib(electronNodeAbi, arch)
+      await replaceSqliteLib(arch)
       break
 
     default:
