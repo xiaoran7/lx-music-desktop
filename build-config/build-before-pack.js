@@ -1,7 +1,7 @@
 // const fs = require('fs')
 // const fsPromises = require('fs').promises
 // const path = require('path')
-// const { Arch } = require('electron-builder')
+const { Arch } = require('electron-builder')
 // const nodeAbi = require('node-abi')
 const { beforePack, copyLib } = require('./deps')
 
@@ -24,12 +24,17 @@ const { beforePack, copyLib } = require('./deps')
 //   await fsPromises.copyFile(filePath, targetPath)
 // }
 
-
+const archMap = {
+  [Arch.x64]: 'x64',
+  [Arch.ia32]: 'ia32',
+  [Arch.arm64]: 'arm64',
+  [Arch.armv7l]: 'armv7l',
+}
 module.exports = async(context) => {
   await beforePack()
   const { arch } = context
-  await copyLib(arch)
-  // const electronVersion = context.packager?.info?._framework?.version ?? require('../package.json').devDependencies.electron.replace(/^[^\d]*?(\d+)/, '$1')
+  const electronVersion = context.packager?.info?._framework?.version ?? require('../package.json').devDependencies.electron.replace(/^[^\d]*?(\d+)/, '$1')
+  await copyLib(archMap[arch], parseInt(electronVersion) == 22)
   // const electronNodeAbi = nodeAbi.getAbi(electronVersion, 'electron')
   // if (electronPlatformName !== 'linux' || process.env.FORCE) return
   // // const bindingFilePath = path.join(__dirname, '../node_modules/better-sqlite3/binding.gyp')

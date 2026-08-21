@@ -28,7 +28,7 @@ const files = ['better_sqlite3']
 const moveFile = async(filePath) => {
   const name = `${path.basename(filePath).split('_v')[0].replace('_', '-')}`
   for (const fileName of files) {
-    if (fileName == 'better_sqlite3' && !name.includes('linux')) continue
+    // if (fileName == 'better_sqlite3' && !name.includes('linux')) continue
     const targetPath = path.join(libDir, `${fileName}_${name}.node`)
     if (fs.existsSync(targetPath)) await fs.promises.unlink(targetPath)
     await fs.promises.rename(path.join(filePath, `${fileName}.node`), targetPath)
