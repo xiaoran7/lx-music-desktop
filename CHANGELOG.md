@@ -14,6 +14,7 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
+- Replaced the upstream-heavy README with a fork entrypoint covering local startup, validation, repository/remotes, statistics compatibility, data boundaries and the retained license restrictions (2026-09-09 documentation governance).
 - Disabled automatic update checks for the private fork while retaining the upstream release history below.
 - Added fork-local Gotchas and metadata notes; upstream release entries do not describe the complete fork state.
 
