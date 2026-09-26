@@ -2,7 +2,7 @@
 
 Electron/Vue 桌面客户端的本地二开仓。当前 fork 在上游基础上加入听歌统计与跨设备 statistics 同步，并停用私有分支的自动更新检查。版本、脚本与依赖以 `package.json` 为准；上游发行说明不代表本 fork 已发布。
 
-本机家族入口：`D:\ClaudeSpace\Project\lx-music\docx\README.md`。`gitea` 保存当前 fork，`deploy` 是既有部署分支，`origin` 仅作上游基线；开始前分别检查分支、状态和 remote。
+本机家族入口：[家族文档](../docx/README.md)。`gitea` 保存当前 fork，`deploy` 是既有部署分支，`origin` 仅作上游基线；开始前分别检查分支、状态和 remote。
 
 ## 开发与验证
 
