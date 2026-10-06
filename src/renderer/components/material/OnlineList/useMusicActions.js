@@ -2,6 +2,7 @@ import { useRouter } from '@common/utils/vueRouter'
 import musicSdk from '@renderer/utils/musicSdk'
 import { openUrl } from '@common/utils/electron'
 import { toOldMusicInfo } from '@renderer/utils'
+import { shareMusic } from '@renderer/utils/share'
 import { addDislikeInfo, hasDislike } from '@renderer/core/dislikeList'
 import { playNext } from '@renderer/core/player'
 import { playMusicInfo } from '@renderer/store/player/state'
@@ -30,6 +31,11 @@ export default ({ props }) => {
     openUrl(url)
   }
 
+  const handleShareMusic = index => {
+    const minfo = props.list[index]
+    shareMusic(minfo)
+  }
+
   const handleDislikeMusic = async(index) => {
     const minfo = props.list[index]
     const confirm = await dialog.confirm({
@@ -48,6 +54,7 @@ export default ({ props }) => {
   return {
     handleSearch,
     handleOpenMusicDetail,
+    handleShareMusic,
     handleDislikeMusic,
   }
 }

@@ -6,6 +6,7 @@ import { useI18n } from '@renderer/plugins/i18n'
 import { removeListMusics } from '@renderer/store/list/action'
 import { appSetting } from '@renderer/store/setting'
 import { formatMusicName, toOldMusicInfo } from '@renderer/utils/index'
+import { shareMusic } from '@renderer/utils/share'
 import { addDislikeInfo, hasDislike } from '@renderer/core/dislikeList'
 import { playNext } from '@renderer/core/player'
 import { playMusicInfo } from '@renderer/store/player/state'
@@ -35,6 +36,11 @@ export default ({ props, list, selectedList, removeAllSelect }) => {
   const handleCopyName = index => {
     const minfo = list.value[index]
     clipboardWriteText(formatMusicName(appSetting['download.fileName'], minfo.name, minfo.singer))
+  }
+
+  const handleShareMusic = index => {
+    const minfo = list.value[index]
+    shareMusic(minfo)
   }
 
   const handleDislikeMusic = async(index) => {
@@ -72,6 +78,7 @@ export default ({ props, list, selectedList, removeAllSelect }) => {
     handleSearch,
     handleOpenMusicDetail,
     handleCopyName,
+    handleShareMusic,
     handleDislikeMusic,
     handleRemoveMusic,
   }
