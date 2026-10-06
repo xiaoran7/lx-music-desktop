@@ -87,6 +87,24 @@ dd
       v-for="item in sourceNameTypes" :id="`setting_abasic_sourcename_${item.id}`" :key="item.id"
       name="setting_basic_sourcename" need :model-value="appSetting['common.sourceNameType']" :value="item.id" :label="item.label" @update:model-value="updateSetting({'common.sourceNameType': $event})")
 dd
+  h3#basic_share {{ $t('setting__basic_share_type') }}
+  div
+    base-checkbox.gap-left(
+      v-for="item in shareTypeList" :id="`setting_basic_share_type_${item.id}`" :key="item.id"
+      name="setting_basic_share_type" need :model-value="appSetting['common.shareType']" :value="item.id" :label="item.label" @update:model-value="updateSetting({'common.shareType': $event})")
+  div.gap-top(v-if="appSetting['common.shareType'] == 'custom_server'")
+    .p.small {{ $t('setting__basic_share_server_url') }}
+    div
+      base-input.gap-left(:model-value="appSetting['common.shareServerUrl']" type="text" placeholder="https://music.tannerlab.cn" style="width: 28rem;" @update:model-value="updateSetting({'common.shareServerUrl': $event.trim()})")
+    .p.gap-top.small {{ $t('setting__basic_share_server_token') }}
+    div
+      base-input.gap-left(:model-value="appSetting['common.shareServerToken']" type="text" placeholder="Token" style="width: 28rem;" @update:model-value="updateSetting({'common.shareServerToken': $event.trim()})")
+    .p.gap-top.small {{ $t('setting__basic_share_expire_days') }}
+    div
+      base-checkbox.gap-left(
+        v-for="item in shareExpireDayList" :id="`setting_basic_share_expire_${item.id}`" :key="item.id"
+        name="setting_basic_share_expire" need :model-value="appSetting['common.shareExpireDays']" :value="item.id" :label="item.label" @update:model-value="updateSetting({'common.shareExpireDays': $event})")
+dd
   h3#basic_control_btn_position {{ $t('setting__basic_control_btn_position') }}
   div
     base-checkbox.gap-left(
@@ -286,6 +304,23 @@ export default {
       ]
     })
 
+    const shareTypeList = computed(() => {
+      return [
+        { id: 'clipboard', label: t('setting__basic_share_type_clipboard') },
+        { id: 'custom_server', label: t('setting__basic_share_type_custom_server') },
+      ]
+    })
+
+    const shareExpireDayList = computed(() => {
+      return [
+        { id: 1, label: t('setting__basic_share_expire_day_1') },
+        { id: 3, label: t('setting__basic_share_expire_day_3') },
+        { id: 7, label: t('setting__basic_share_expire_day_7') },
+        { id: 30, label: t('setting__basic_share_expire_day_30') },
+        { id: 0, label: t('setting__basic_share_expire_day_0') },
+      ]
+    })
+
 
     const controlBtnPositionList = computed(() => {
       return [
@@ -347,6 +382,8 @@ export default {
       windowSizeList,
       langList,
       sourceNameTypes,
+      shareTypeList,
+      shareExpireDayList,
       controlBtnPositionList,
       fontList,
       isFullscreen,

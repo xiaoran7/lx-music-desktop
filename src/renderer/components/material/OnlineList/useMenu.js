@@ -14,6 +14,7 @@ export default ({
   handleSearch,
   handleShowMusicAddModal,
   handleOpenMusicDetail,
+  handleShareMusic,
   handleDislikeMusic,
 }) => {
   const itemMenuControl = reactive({
@@ -21,6 +22,7 @@ export default ({
     addTo: true,
     playLater: true,
     download: true,
+    share: true,
     search: true,
     sourceDetail: true,
     dislike: true,
@@ -60,6 +62,11 @@ export default ({
         name: t('list__source_detail'),
         action: 'sourceDetail',
         disabled: !itemMenuControl.sourceDetail,
+      },
+      {
+        name: t('list__share_music'),
+        action: 'share',
+        disabled: !itemMenuControl.share,
       },
       {
         name: t('list__dislike'),
@@ -120,6 +127,9 @@ export default ({
         break
       case 'sourceDetail':
         handleOpenMusicDetail(index)
+        break
+      case 'share':
+        handleShareMusic(index)
         break
       case 'dislike':
         handleDislikeMusic(index)
