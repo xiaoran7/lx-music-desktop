@@ -1,17 +1,17 @@
 # lx-music-desktop change log
 
+## 2026-10-06 — 分支规范收敛与主分支对齐
+
+- 清理 CHANGELOG.md 重复模板声明。
+- 将 desktop 分支合并至主分支 master，后续以 master 为主力开发基线。
+
 ## 2026-09-26 — 文档核对与精简
 
 - 核对 package 脚本、运行入口及协议文档，统一本仓规则，保留上游 FAQ 与发布历史。
+
 ## 2026-09-26 — 单项目 Agent 入口
 
 - 规则、长期偏好和相关排障经验迁入本项目，agent 不再依赖父目录共享文档。
-
-All notable changes to this project will be documented in this file.
-
-Project versioning adheres to [Semantic Versioning](http://semver.org/).
-Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
-Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 All notable changes to this project will be documented in this file.
 
