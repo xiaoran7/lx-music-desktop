@@ -140,6 +140,12 @@ export default {
         console.warn('获取音频直链失败', e)
       }
 
+      if (!audioUrl) {
+        this.errorMsg = this.t('share_custom_server_no_audio')
+        this.loading = false
+        return
+      }
+
       let picUrl = ''
       try {
         picUrl = await getPicPath({ musicInfo: this.musicInfo })
