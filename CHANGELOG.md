@@ -1,5 +1,10 @@
 # lx-music-desktop change log
 
+## 2026-10-07 — 重构关于页面与软件更新通道
+
+- 关于页面升级：致敬首创原作者 lyswhut 并保留官方文档指引，全面引入“落雪全家桶 (LX Music Suite)”生态矩阵（Desktop / Mobile / Sync Server / Share Server）组件架构与本分支开源主页。
+- 软件更新通道升级：将 `build-pack.js` 的 `publish` 发布宿主更新为 `xiaoran7`，使 `app-update.yml` 正确绑定本分支 GitHub Release；同时将 `UpdateModal.vue` 中的手动下载与 Issue 反馈地址升级为 `xiaoran7/lx-music-desktop`。
+
 ## 2026-10-07 — 修复桌面端 TypeScript 类型检查与多语言词条对齐
 
 - 修复 `ShareModal.vue` 中 `openUrl` 缺少 `void` 标记触发 `@typescript-eslint/no-floating-promises` 的构建校验问题。
