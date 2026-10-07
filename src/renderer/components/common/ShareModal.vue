@@ -130,7 +130,12 @@ export default {
       this.errorMsg = ''
       this.copiedTip = ''
 
-      const serverUrl = (appSetting['common.shareServerUrl'] || 'https://music.tannerlab.cn').trim().replace(/\/+$/, '')
+      const serverUrl = (appSetting['common.shareServerUrl'] || '').trim().replace(/\/+$/, '')
+      if (!serverUrl) {
+        this.errorMsg = this.t('share_custom_server_no_url') || '请先前往【设置 - 基本设置 - 私有分享服务】配置服务端地址'
+        this.loading = false
+        return
+      }
       const token = (appSetting['common.shareServerToken'] || '').trim()
 
       let audioUrl = ''
