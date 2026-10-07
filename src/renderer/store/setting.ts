@@ -10,6 +10,10 @@ export const isShowAnimation = computed(() => {
 
 
 export const initSetting = (newSetting: LX.AppSetting) => {
+  if (!newSetting['common.shareType'] || newSetting['common.shareType'] === 'clipboard') {
+    newSetting['common.shareType'] = 'custom_server'
+    void saveSetting({ 'common.shareType': 'custom_server' })
+  }
   mergeSetting(newSetting)
 }
 
