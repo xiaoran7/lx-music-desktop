@@ -216,7 +216,7 @@ export default {
     },
     handleOpenBrowser() {
       if (!this.shareUrl) return
-      openUrl(this.shareUrl)
+      void openUrl(this.shareUrl)
     },
   },
 }

@@ -1,5 +1,12 @@
 # lx-music-desktop change log
 
+## 2026-10-07 — 修复桌面端 TypeScript 类型检查与多语言词条对齐
+
+- 修复 `ShareModal.vue` 中 `openUrl` 缺少 `void` 标记触发 `@typescript-eslint/no-floating-promises` 的构建校验问题。
+- 修复 `src/renderer/utils/share.ts` 中 `Download.ListItem` 类型断言兼容性，确保安全解构歌曲元数据。
+- 补齐韩语语言包 `src/lang/ko-kr.json` 中缺失的 42 个多语言键值（包括 `statistics` 与 `share_*` 系列），解决 TypeScript 因联合类型交叉验证报错的问题。
+- 完成 Webpack 全量构建编译验证，确保生产环境构建通过。
+
 ## 2026-10-07 — 重构开源发布文档与生产环境配置脱敏
 
 - 重构 `README.md`：致敬原作者 lyswhut，系统梳理“落雪全家桶”（Desktop、Mobile、Sync Server、Share Server）生态架构与协同机制。

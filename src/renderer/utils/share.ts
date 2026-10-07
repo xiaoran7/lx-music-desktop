@@ -31,16 +31,20 @@ export const openShareModal = (musicInfo: LX.Music.MusicInfo | LX.Download.ListI
   })
 }
 
-export const shareMusic = (musicInfo: LX.Music.MusicInfo | LX.Download.ListItem) => {
+export const shareMusic = (item: LX.Music.MusicInfo | LX.Download.ListItem) => {
   const shareType = appSetting['common.shareType'] || 'custom_server'
   const t = window.i18n.t
+
+  const musicInfo: LX.Music.MusicInfo = ('metadata' in item && (item as any).metadata?.musicInfo)
+    ? (item as any).metadata.musicInfo
+    : (item as LX.Music.MusicInfo)
 
   if (shareType === 'custom_server') {
     void openShareModal(musicInfo)
   } else {
     const name = musicInfo.name
     const singer = musicInfo.singer
-    const detailUrl = musicInfo.source == 'local' ? '' : musicSdk[musicInfo.source]?.getMusicDetailPageUrl(toOldMusicInfo(musicInfo as any)) ?? ''
+    const detailUrl = musicInfo.source === 'local' ? '' : ((musicSdk as any)[musicInfo.source]?.getMusicDetailPageUrl(toOldMusicInfo(musicInfo as any)) ?? '')
     const musicTitle = formatMusicName(appSetting['download.fileName'], name, singer)
     const text = `${musicTitle}${detailUrl ? '\n' + detailUrl : ''}`
     clipboardWriteText(text)
