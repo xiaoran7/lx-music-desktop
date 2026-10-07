@@ -14,7 +14,7 @@ const defaultSetting: LX.AppSetting = {
   'common.apiSource': 'temp',
   'common.sourceNameType': 'alias',
   'common.shareType': 'custom_server',
-  'common.shareServerUrl': 'https://music.tannerlab.cn',
+  'common.shareServerUrl': '',
   'common.shareServerToken': '',
   'common.shareExpireDays': 7,
   'common.font': '',

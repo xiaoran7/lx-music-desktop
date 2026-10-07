@@ -95,7 +95,7 @@ dd
   div.gap-top(v-if="appSetting['common.shareType'] == 'custom_server'")
     .p.small {{ $t('setting__basic_share_server_url') }}
     div
-      base-input.gap-left(:model-value="appSetting['common.shareServerUrl']" type="text" placeholder="https://music.tannerlab.cn" style="width: 28rem;" @update:model-value="updateSetting({'common.shareServerUrl': $event.trim()})")
+      base-input.gap-left(:model-value="appSetting['common.shareServerUrl']" type="text" placeholder="https://music.example.com" style="width: 28rem;" @update:model-value="updateSetting({'common.shareServerUrl': $event.trim()})")
     .p.gap-top.small {{ $t('setting__basic_share_server_token') }}
     div
       base-input.gap-left(:model-value="appSetting['common.shareServerToken']" type="text" placeholder="Token" style="width: 28rem;" @update:model-value="updateSetting({'common.shareServerToken': $event.trim()})")

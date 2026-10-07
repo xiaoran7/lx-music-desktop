@@ -1,5 +1,12 @@
 # lx-music-desktop change log
 
+## 2026-10-07 — 重构开源发布文档与生产环境配置脱敏
+
+- 重构 `README.md`：致敬原作者 lyswhut，系统梳理“落雪全家桶”（Desktop、Mobile、Sync Server、Share Server）生态架构与协同机制。
+- 编写落雪全家桶双服务端保姆级部署指南：包含 Sync Server（Docker/Node.js/Nginx WebSocket）与 Share Server（FastAPI/Systemd/Nginx Range 206）完整配置与客户端接入流程。
+- 生产环境配置脱敏：剔除所有私有域名与服务器信息，将默认分享地址与占位符规范为通用示例。
+- 增加未配置分享服务器时的友好交互提示与多语言词条（`share_custom_server_no_url`）。
+
 ## 2026-10-07 — 引入 ShareModal 弹窗与自定义有效期选择
 
 - 新增 `ShareModal.vue` 浮窗交互组件：去除静默写入剪贴板逻辑，点击分享时唤起专属浮窗。
@@ -11,7 +18,7 @@
 
 ## 2026-10-07 — 引入私有云音乐分享服务与单页播放
 
-- 跨端对齐私有云音乐分享协议：支持将歌曲直链、封面、LRC 歌词及元数据推送到自建服务（默认 `https://music.tannerlab.cn`）。
+- 跨端对齐私有云音乐分享协议：支持将歌曲直链、封面、LRC 歌词及元数据推送到自建服务（如 `https://music.example.com`）。
 - 服务端全自动异步流式转存音频、专辑封面和 LRC 歌词，生成免安装、即开即播的自适应 APlayer 网页播放单页。
 - 引入有效期限（TTL）与自动清理机制：支持设置 1天、3天、7天、30天或永久有效，过期自动销毁释放存储空间。
 - 完善操作闭环：歌曲列表右键/操作菜单新增“分享歌曲”项，基本设置中支持切换分享方式与配置私有云地址、访问 Token 与默认过期天数。
