@@ -3,3 +3,9 @@
 # (the Windows default) that would otherwise mark the whole tree stale.
 # Binaries are auto-detected and left untouched.
 * text=auto eol=lf
+
+# GitHub Linguist 语言统计过滤（忽略构建产物、打包脚本与静态资源干扰，聚焦 TypeScript 与 Vue 前端代码）
+build/** linguist-vendored
+dist/** linguist-vendored
+resources/** linguist-vendored
+licenses/** linguist-vendored
