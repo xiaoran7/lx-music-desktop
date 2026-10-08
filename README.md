@@ -10,6 +10,7 @@
 
 - **原作者 GitHub**：[lyswhut](https://github.com/lyswhut)
 - **上游官方仓库**：[lx-music-desktop](https://github.com/lyswhut/lx-music-desktop)
+- **自定义音源推荐**：[lx-music-source (六音自定义音源)](https://github.com/pdone/lx-music-source)
 - **官方使用文档**：[LX Music Document](https://lyswhut.github.io/lx-music-doc/)
 - **常见问题解答**：[桌面端 FAQ](https://lyswhut.github.io/lx-music-doc/desktop/faq)
 
