@@ -27,6 +27,9 @@ material-modal(:show="versionInfo.showModal" max-width="60%" @close="handleClose
             | 与当前版本({{ versionInfo.version }})对比是否一致。
           p 若一致则不必理会该弹窗，直接关闭即可；否则请手动下载新版本更新。
     div(:class="$style.footer")
+      div(:class="$style.fallbackRow")
+        base-btn(:class="$style.fallbackBtn" @click="handleOpenUrl('https://github.com/xiaoran7/lx-music-desktop/releases')") 🌐 浏览器直达发布页
+        base-btn(:class="$style.fallbackBtn" @click="handleCopy('https://github.com/xiaoran7/lx-music-desktop/releases')") 📋 复制发布页链接
       div(:class="$style.btns")
         base-btn(v-if="versionInfo.status == 'error'" :class="$style.btn2" @click="handleCheckUpdate") 重新检查更新
         base-btn(v-else :class="$style.btn2" disabled) 检查更新中...
@@ -81,6 +84,9 @@ material-modal(:show="versionInfo.showModal" max-width="60%" @close="handleClose
           | 。
         p(v-if="progress") 当前下载进度：{{ progress }}
         p(v-else) &nbsp;
+      div(:class="$style.fallbackRow")
+        base-btn(:class="$style.fallbackBtn" @click="handleOpenUrl('https://github.com/xiaoran7/lx-music-desktop/releases')") 🌐 浏览器高速下载
+        base-btn(:class="$style.fallbackBtn" @click="handleCopy('https://github.com/xiaoran7/lx-music-desktop/releases')") 📋 复制发布页链接
       div(:class="$style.btns")
         base-btn(:class="$style.btn2" @click="handleIgnoreClick") {{ isIgnored ? '取消忽略' : '忽略更新该版本' }}
         base-btn(v-if="versionInfo.status == 'downloading'" :class="$style.btn2" disabled) 下载更新中...
@@ -302,6 +308,19 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   gap: 15px;
+}
+
+.fallbackRow {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.fallbackBtn {
+  flex: 1;
+  font-size: 12px;
+  opacity: 0.9;
 }
 
 .btn {

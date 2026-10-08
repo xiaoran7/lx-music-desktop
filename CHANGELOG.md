@@ -1,5 +1,9 @@
 # lx-music-desktop change log
 
+## 2026-10-08 — 软件更新弹窗交互升级与逃生通道
+
+- **更新弹窗逃生通道**：在 `UpdateModal.vue` 更新发现与错误提示卡片中新增【🌐 浏览器直达发布页】与【📋 复制发布页链接】按钮，当应用内下载受阻或国内网络检测异常时，用户可一键直达 GitHub Release 页面或复制直链进行手动升级。
+
 ## 2026-10-07 — 重构关于页面与软件更新通道
 
 - 关于页面升级：致敬首创原作者 lyswhut 并保留官方文档指引，全面引入“落雪全家桶 (LX Music Suite)”生态矩阵（Desktop / Mobile / Sync Server / Share Server）组件架构与本分支开源主页。
