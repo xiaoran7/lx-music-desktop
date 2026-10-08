@@ -209,7 +209,9 @@ export default {
     },
     handleCopy() {
       if (!this.shareUrl) return
-      clipboardWriteText(this.shareUrl)
+      const title = this.musicInfo ? `${this.musicInfo.name}${this.musicInfo.singer ? ` - ${this.musicInfo.singer}` : ''}` : ''
+      const text = title ? `${title}\n${this.shareUrl}` : this.shareUrl
+      clipboardWriteText(text)
       this.copiedTip = this.ttlDays > 0
         ? this.t('share_custom_server_success_ttl', { days: this.ttlDays })
         : this.t('share_custom_server_success')
