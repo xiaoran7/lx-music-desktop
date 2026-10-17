@@ -11,7 +11,7 @@ import ShareModal from '@renderer/components/common/ShareModal.vue'
 /**
  * 唤起桌面端专属分享弹窗（支持选择有效期、手动复制、浏览器试听）
  */
-export const openShareModal = (musicInfo: LX.Music.MusicInfo | LX.Download.ListItem): Promise<boolean> => {
+export const openShareModal = async(musicInfo: LX.Music.MusicInfo | LX.Download.ListItem): Promise<boolean> => {
   return new Promise((resolve) => {
     let app: any = createApp(ShareModal, {
       musicInfo,
@@ -26,7 +26,7 @@ export const openShareModal = (musicInfo: LX.Music.MusicInfo | LX.Download.ListI
     const instance: any = app.mount(document.createElement('div'))
     instance.visible = true
 
-    const container = document.getElementById('container') || document.body
+    const container = document.getElementById('container') ?? document.body
     container.appendChild(instance.$el)
   })
 }

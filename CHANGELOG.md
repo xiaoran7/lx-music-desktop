@@ -1,5 +1,10 @@
 # lx-music-desktop change log
 
+## 2026-10-18 — 补齐 Gitea Actions CI 工作流与修复 ShareModal ESLint 校验
+
+- **CI 门禁补齐与 Gitea 适配**：新增 `.gitea/workflows/ci.yml`，在自建 Gitea Actions (`us-zenix` Linux 容器) 环境下执行标准 Node.js 22 ESLint 校验与 Webpack 构建测试，消除非发布推送时对未授权 GitHub Release 凭据及 Windows/macOS runner 的死锁依赖。
+- **ESLint 代码规范修复**：修复 `src/renderer/utils/share.ts` 中 `openShareModal` 的 async Promise 声明与空值合并运算符使用，使 `npm run lint` 0 警告 0 报错通过。
+
 ## 2026-10-08 — 配置 GitHub Linguist 语言统计过滤
 
 - **代码语言统计净化**：配置 `.gitattributes`，将构建与打包配置、静态资源、许可证目录等标记为 `linguist-vendored`，过滤掉辅助脚本杂项，突出 TypeScript / Vue 核心前端工程语言。

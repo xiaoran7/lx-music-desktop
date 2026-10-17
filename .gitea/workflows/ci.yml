@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Specialized Gitea Actions workflow executing on self-hosted Linux runner (us-zenix).
+# Runs lint and webpack bundle verification in ubuntu-latest containers without
+# requiring external GitHub release publishing tokens or Windows/macOS runners.
+
+jobs:
+  test:
+    name: Lint and Build Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Eslint check
+        run: npm run lint
+
+      - name: Test Build
+        run: npm run build
