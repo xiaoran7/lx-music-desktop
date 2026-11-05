@@ -11,6 +11,16 @@
   - 复用上游已有的 `getUserListDetail2`：它调用的 `mobiles.kugou.com/api/v5/special/info_v2` 与 `special/song_v2` 本就接受 `collection_3_...` 形式的 id，无需改动接口层。
 - **验证**：以桌面端真实 `songList.js` 源码 + Node `fetch` shim 搭建验证台，实测三种链接均正确路由至 `getUserListDetail2`，解析出 `collection_3_955649309_2_0` 与 `collection_3_908702899_33_0`；`info_v2` 返回 `errcode 0 / songcount 192`，`song_v2` 返回 `errcode 0 / 186 首`。连续高频请求会触发酷狗 IP 级限流（`errcode 20028 您操作太频繁了`），属服务端行为，与本次改动无关。
 
+### 追加修复：酷狗接口 Referer 风控
+
+- **现象**：概念版歌单能正确路由到 `getUserListDetail2`，但取歌步骤恒定失败，返回 `{"errcode":20028,"status":0,"error":"您操作太频繁了，请稍后再试"}`。更换出口 IP（美西机实测）后同样失败，排除 IP 级限流。
+- **定位**：同一 URL、同一台机器、同一份签名，仅替换 `Referer` 头即可复现与解除——`Referer: https://m3ws.kugou.com/share/index.php` 触发风控，`https://www.kugou.com/` 或省略 `Referer` 均正常返回。`info_v2` 不受影响（`errcode 0`），仅 `song_v2` 被拦，因此表现为"歌单能识别、取歌必失败"。该 `Referer` 是上游沿用多年的旧值，酷狗侧已对其加风控。
+- **修复**：将 `songList.js` 中 5 处 `Referer: 'https://m3ws.kugou.com/share/index.php'` 统一替换为 `'https://www.kugou.com/'`。
+- **端到端验证**（在 `us-zenix99` 独立出口执行，加载本仓真实源码）：
+  - 概念版短链 `t1.kugou.com/9Qu2h58BiV2` → 歌单《陈鹏喜欢的音乐》，作者陈鹏，**185 首**，首曲"囚鸟 (DJ豪大大版) - 郑添媛"；
+  - 概念版短链 `t1.kugou.com/2cqDvaazwV3` → 歌单《微醺》，作者黝黑，**7 首**；
+  - 概念版长链（activity 页）→ 同歌单《陈鹏喜欢的音乐》，**185 首**。
+
 ## 2026-10-18 — 补齐 Gitea Actions CI 工作流与修复 ShareModal ESLint 校验
 
 - **CI 门禁补齐与 Gitea 适配**：新增 `.gitea/workflows/ci.yml`，在自建 Gitea Actions (`us-zenix` Linux 容器) 环境下执行标准 Node.js 22 ESLint 校验与 Webpack 构建测试，消除非发布推送时对未授权 GitHub Release 凭据及 Windows/macOS runner 的死锁依赖。

@@ -483,7 +483,7 @@ export default {
       tasks.push(this.createHttp(`https://mobiles.kugou.com/api/v5/special/song_v2?${params}&signature=${signatureParams(params, 'web')}`, {
         headers: {
           mid: '1586163263991',
-          Referer: 'https://m3ws.kugou.com/share/index.php',
+          Referer: 'https://www.kugou.com/',
           'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
           dfid: '-',
           clienttime: '1586163263991',
@@ -497,7 +497,7 @@ export default {
     const data = await this.createHttp(`https://m3ws.kugou.com/v2/zlist/list?${params}&signature=${signatureParams(params, 'web')}`, {
       headers: {
         mid: '1586163263991',
-        Referer: 'https://m3ws.kugou.com/share/index.php',
+        Referer: 'https://www.kugou.com/',
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
         dfid: '-',
         clienttime: '1586163263991',
@@ -515,7 +515,7 @@ export default {
       tasks.push(this.createHttp(`https://m3ws.kugou.com/v2/zlist/list?${params}&signature=${signatureParams(params, 'web')}`, {
         headers: {
           mid: '1586163263991',
-          Referer: 'https://m3ws.kugou.com/share/index.php',
+          Referer: 'https://www.kugou.com/',
           'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
           dfid: '-',
           clienttime: '1586163263991',
@@ -546,7 +546,7 @@ export default {
     let info = await this.createHttp(`https://mobiles.kugou.com/api/v5/special/info_v2?${params}&signature=${signatureParams(params, 'web')}`, {
       headers: {
         mid: '1586163242519',
-        Referer: 'https://m3ws.kugou.com/share/index.php',
+        Referer: 'https://www.kugou.com/',
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
         dfid: '-',
         clienttime: '1586163242519',
@@ -647,7 +647,7 @@ export default {
     const signature = await handleSignature(id, page, limit)
     let info = await this.createHttp(`https://pubsongscdn.kugou.com/v2/get_other_list_file?srcappid=2919&clientver=20000&appid=1058&type=0&module=playlist&page=${page}&pagesize=${limit}&specialid=${id}&signature=${signature}`, {
       headers: {
-        Referer: 'https://m3ws.kugou.com/share/index.php',
+        Referer: 'https://www.kugou.com/',
         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
         dfid: '-',
       },
