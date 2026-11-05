@@ -1,5 +1,16 @@
 # lx-music-desktop change log
 
+## 2026-11-05 — 支持酷狗概念版歌单链接导入
+
+- **背景**：上游长期未支持酷狗概念版（Kugou Lite）歌单。相关 issue [#776](https://github.com/lyswhut/lx-music-desktop/issues/776)（2022）、[#1735](https://github.com/lyswhut/lx-music-desktop/issues/1735)（2023）、[#2401](https://github.com/lyswhut/lx-music-desktop/issues/2401)（2025）均为 open 状态，作者在 [#2246](https://github.com/lyswhut/lx-music-desktop/issues/2246) 明确回复"目前不支持打开酷狗概念版的歌单"。
+- **根因定位**：概念版分享短链 `t1.kugou.com/xxxx` 会 302 到 `activity.kugou.com/share/.../index.html?...&global_specialid=collection_3_xxx_0_0`。该页是 webpack 单页应用，HTML 内不含任何歌单字段；而 `getUserListDetail` 的路由分支只识别 `global_collection_id`、`chain=`、`gcid_`、`.html` 四种特征，概念版链接仅命中 `.html`，遂进入 `getUserListDetail3`，其正则从 `.../index.html` 中提取出的 id 是字符串 `"index"`，再以 `chain=index` 请求 `m.kugou.com/schain/transfer`，服务端返回 `errcode 33000`，重试三次后抛 `link try max num`，用户侧表现为"歌单加载失败"。
+- **修复**：在 `src/renderer/utils/musicSdk/kg/songList.js` 的 `getUserListDetail` 中新增两级识别——
+  1. 链接本身带 `global_specialid=collection_` 时（概念版长链），直接转 `getUserListDetail2(global_collection_id)`，不发任何额外请求；
+  2. 链接为短链时，先取 302 的 `Location` 头，若其中含 `global_specialid=collection_` 同样直转；该分支显式跳过 `.html` 与 `/yy/special/single/` 形态，避免影响既有酷狗普通歌单路径。
+  - 同时在 `Location` 处理分支（跟随跳转后）补同样的前置判断，作为第三重兜底。
+  - 复用上游已有的 `getUserListDetail2`：它调用的 `mobiles.kugou.com/api/v5/special/info_v2` 与 `special/song_v2` 本就接受 `collection_3_...` 形式的 id，无需改动接口层。
+- **验证**：以桌面端真实 `songList.js` 源码 + Node `fetch` shim 搭建验证台，实测三种链接均正确路由至 `getUserListDetail2`，解析出 `collection_3_955649309_2_0` 与 `collection_3_908702899_33_0`；`info_v2` 返回 `errcode 0 / songcount 192`，`song_v2` 返回 `errcode 0 / 186 首`。连续高频请求会触发酷狗 IP 级限流（`errcode 20028 您操作太频繁了`），属服务端行为，与本次改动无关。
+
 ## 2026-10-18 — 补齐 Gitea Actions CI 工作流与修复 ShareModal ESLint 校验
 
 - **CI 门禁补齐与 Gitea 适配**：新增 `.gitea/workflows/ci.yml`，在自建 Gitea Actions (`us-zenix` Linux 容器) 环境下执行标准 Node.js 22 ESLint 校验与 Webpack 构建测试，消除非发布推送时对未授权 GitHub Release 凭据及 Windows/macOS runner 的死锁依赖。

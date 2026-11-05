@@ -662,6 +662,11 @@ export default {
   async getUserListDetail(link, page, retryNum = 0) {
     if (retryNum > 3) return Promise.reject(new Error('link try max num'))
     if (link.includes('#')) link = link.replace(/#.*$/, '')
+    // 酷狗概念版分享长链：activity.kugou.com/share/.../index.html?global_specialid=collection_3_xxx_0_0
+    // 该页为单页应用，直接抓 HTML 拿不到歌单信息，需在路由层前置识别 global_specialid
+    if (/[?&]global_specialid=collection_/.test(link)) {
+      return this.getUserListDetail2(link.replace(/^.*?[?&]global_specialid=(collection_[^&#]+)(?:&.*$|#.*$|$)/, '$1'))
+    }
     if (link.includes('global_collection_id') && link.includes('chain')) {
       return this.getListDetailByGcidChain(link.replace(/^.*?global_collection_id=(\w+)(?:&.*$|#.*$|$)/, '$1'), link.replace(/^.*?chain=(\w+)(?:&.*$|#.*$|$)/, '$1'))
     }
@@ -695,6 +700,10 @@ export default {
     // console.log(body, location)
     if (statusCode > 400) return this.getUserListDetail(link, page, ++retryNum)
     if (location) {
+      // 概念版：跳转后 Location 带 global_specialid，直接走 getGlobalSpecialId 路径
+      if (/[?&]global_specialid=collection_/.test(location)) {
+        return this.getUserListDetail2(location.replace(/^.*?[?&]global_specialid=(collection_[^&#]+)(?:&.*$|#.*$|$)/, '$1'))
+      }
       if (location.includes('global_collection_id') && location.includes('chain')) {
         return this.getListDetailByGcidChain(location.replace(/^.*?global_collection_id=(\w+)(?:&.*$|#.*$|$)/, '$1'), location.replace(/^.*?chain=(\w+)(?:&.*$|#.*$|$)/, '$1'))
       }
